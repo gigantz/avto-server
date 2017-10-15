@@ -1,0 +1,10 @@
+{
+  "presets": ["es2015", "stage-2"],
+  "plugins": [
+    ["module-alias", [
+      { "src": "./config","expose": "config" },
+      { "src": "./routes","expose": "routes" },
+      { "src": "./models","expose": "models" },
+    ]]
+  ]
+}

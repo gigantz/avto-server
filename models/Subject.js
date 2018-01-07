@@ -1,15 +1,17 @@
 import mongoose from 'mongoose';
+var Schema = mongoose.Schema;
 
-const schema = new mongoose.Schema({
+const schema = new Schema({
+  subjectId: { type: String, require: true, index: true },
   title: { type: String, required: true },
+  body: { type: String, required: true },
   auto: { type: Schema.Types.ObjectId, ref: 'auto' },
-  autoId: { type: Number, required: true },
-  modelId: { type: Number, required: true },
   categoryId: { type: Number, required: true },
-  category: { type: String, required: true },
-  subscribers: Array,
-  authorId: { type: String, required: true },
-  authorFullName: { type: String, required: true },
+  subscribers: [{
+    userId: String,
+    subscribedAt: { type: Date, default: Date.now },
+  }],
+  author: { type: Schema.Types.ObjectId, ref: 'users' },
   likes: { type: Number, default: 0 },
   postDate: { type: Date, default: Date.now },
 

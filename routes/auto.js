@@ -1,25 +1,12 @@
 import express from 'express';
 import path from 'path';
+import Metrix from 'metrix';
+import checkToken from '../middleware/checkToken';
+
 const router = express.Router();
 
 import Users from 'models/Users';
 import Auto from 'models/Auto';
-
-router.get('/app', (req, res) => {
-  res.sendFile(path.resolve('./index.html'));
-})
-
-router.get('/users', async (req, res, next) => {
-  try {
-    const users = await Users.find();
-    res.json(users);
-  } catch ({ message }) {
-    return next({
-      status: 500,
-      message
-    });
-  }
-});
 
 router.get('/marks', async (req, res, next) => {
   try {
@@ -67,7 +54,9 @@ router.get('/years/:modelId', async (req, res, next) => {
   }
 });
 
-router.get('/body/:modelId/:year', async (req, res, next) => {
+
+
+router.get('/bodies/:modelId/:year', async (req, res, next) => {
   try {
     const model = await Auto.aggregate([
       {$match: { model_id: +req.params.modelId, year: +req.params.year }},
@@ -82,7 +71,7 @@ router.get('/body/:modelId/:year', async (req, res, next) => {
   }
 });
 
-router.get('/generation/:modelId/:year/:bodyId', async (req, res, next) => {
+router.get('/generations/:modelId/:year/:bodyId', async (req, res, next) => {
   try {
     const model = await Auto.aggregate([
       {$match: { model_id: +req.params.modelId, year: +req.params.year, body_id: +req.params.bodyId}},
@@ -97,7 +86,7 @@ router.get('/generation/:modelId/:year/:bodyId', async (req, res, next) => {
   }
 });
 
-router.get('/trim/:modelId/:year/:bodyId/:generationId', async (req, res, next) => {
+router.get('/trims/:modelId/:year/:bodyId/:generationId', async (req, res, next) => {
   try {
     const model = await Auto.aggregate([
       {$match: { model_id: +req.params.modelId, year: +req.params.year, body_id: +req.params.bodyId, generation_id: +req.params.generationId}},
@@ -112,9 +101,18 @@ router.get('/trim/:modelId/:year/:bodyId/:generationId', async (req, res, next) 
   }
 });
 
-router.get('/one/:autoId', async (req, res, next) => {
+router.get('/getid/:modelId/:year/:bodyId/:generationId/:trimId', checkToken, async (req, res, next) => {
   try {
-    const model = await Auto.findOne({ _id: req.params.autoId }).limit(5)
+    const model = await Auto.findOne({
+      model_id: +req.params.modelId,
+      year: +req.params.year,
+      body_id: +req.params.bodyId,
+      generation_id: +req.params.generationId,
+      trim_id: +req.params.trimId,
+    });
+
+    Metrix.dispatch('AUTO_NEW_SELECTED', req.user, model);
+    
     res.json(model);
   } catch ({ message }) {
     return next({
@@ -124,13 +122,17 @@ router.get('/one/:autoId', async (req, res, next) => {
   }
 });
 
-router.get('/add', async (req, res, next) => {
+router.get('/one/:autoId', async (req, res, next) => {
   try {
-    const mark = await Mark.create({ name: 'Ваз', id_car_mark: 0 });
+    const model = await Auto.findOne({ _id: req.params.autoId });
+    
+    res.json(model);
   } catch ({ message }) {
-    console.log(message);
+    return next({
+      status: 500,
+      message
+    });
   }
-  res.end('Done');
 });
 
 export default router;

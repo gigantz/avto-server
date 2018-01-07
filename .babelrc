@@ -1,10 +1,15 @@
 {
-  "presets": ["es2015", "stage-2"],
+  "presets": ["env", "es2015", "stage-2"],
   "plugins": [
     ["module-alias", [
       { "src": "./config","expose": "config" },
       { "src": "./routes","expose": "routes" },
+      { "src": "./controllers","expose": "controllers" },
       { "src": "./models","expose": "models" },
-    ]]
-  ]
+      { "src": "./utils","expose": "utils" },
+      { "src": "./metrix","expose": "metrix" }
+    ]],
+    ["transform-runtime"]
+  ],
+  "ignore": "./node_modules/"
 }

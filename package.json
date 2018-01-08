@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node run.js",
-    "start-pm2": "nodemon server.js --exec babel-node --presets es2015,stage-2",
-    "build": "babel ./ -d build --ignore node_modules,build",
+    "start-pm2": "./node_modules/.bin/nodemon server.js --exec babel-node --presets es2015,stage-2",
+    "build": "./node_modules/.bin/babel ./ -d build --ignore node_modules,build",
     "ws": "nodemon ws-server.js --exec babel-node --presets es2015,stage-2",
     "pretty": "prettier --write --single-quote --trailing-comma es5 --print-width 100"
   },

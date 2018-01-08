@@ -29,7 +29,7 @@ function spawn(name, colorcode, script, args) {
   });
 }
 
-if(process.env.NODE_ENV !== 'development') {
+if(process.env.NODE_ENV === 'production' || NPM_CONFIG_PRODUCTION) {
   spawn('Production Server   ', '\x1b[35m', 'pm2', ['start', 'build/server.js', '-i', 'max']);
 } else {
   spawn('Dev Server   ', '\x1b[35m', './node_modules/.bin/nodemon', ['./build/server.js']);

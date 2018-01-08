@@ -41,5 +41,8 @@
     "babel-preset-stage-2": "^6.24.1",
     "nodemon": "^1.12.1",
     "pm2": "^2.9.1"
+  },
+  "engines": {
+    "node": "9.1.0"
   }
 }

@@ -1,1 +1,1 @@
-web: npm install && node ./build/server.js
+web: npm install && npm start

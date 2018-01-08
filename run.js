@@ -32,7 +32,7 @@ function spawn(name, colorcode, script, args) {
 if(process.env.NODE_ENV === 'production') {
   spawn('Production Server   ', '\x1b[35m', 'pm2', ['start', 'build/server.js', '-i', 'max']);
 } else {
-  spawn('Dev Server   ', '\x1b[35m', './node_modules/.bin/nodemon', ['./server.js','--exec', 'babel-node' ,'--presets', 'es2015,stage-2']);
+  spawn('Dev Server   ', '\x1b[35m', './node_modules/.bin/nodemon', ['./build/server.js']);
   // spawn('Dev WSServer   ', '\x1b[35m', './node_modules/.bin/node', ['start', 'server.js', '-i', '0']);
   // nodemon server.js --exec babel-node --presets es2015,stage-2
 }

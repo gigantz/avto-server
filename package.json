@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/server.js",
-    "start-pm2": "./node_modules/.bin/nodemon server.js --exec babel-node --presets es2015,stage-2",
+    "start": "npm run build && node run.js",
+    "start-pm2": "nodemon server.js --exec babel-node --presets es2015,stage-2",
     "build": "./node_modules/.bin/babel ./ -d build --ignore node_modules,build",
     "ws": "nodemon ws-server.js --exec babel-node --presets es2015,stage-2",
     "pretty": "prettier --write --single-quote --trailing-comma es5 --print-width 100"
@@ -39,7 +39,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "nodemon": "^1.14.8",
+    "nodemon": "^1.12.1",
     "pm2": "^2.9.1"
   },
   "engines": {

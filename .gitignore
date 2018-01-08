@@ -3,8 +3,6 @@
 .DS_Store
 
 #local
-#
-build/
 .idea
 local.properties
 

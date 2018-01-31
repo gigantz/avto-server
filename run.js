@@ -34,5 +34,4 @@ if(process.env.NODE_ENV === 'production' || NPM_CONFIG_PRODUCTION) {
 } else {
   spawn('Dev Server   ', '\x1b[35m', './node_modules/.bin/nodemon', ['./build/server.js']);
   // spawn('Dev WSServer   ', '\x1b[35m', './node_modules/.bin/node', ['start', 'server.js', '-i', '0']);
-  // nodemon server.js --exec babel-node --presets es2015,stage-2
 }

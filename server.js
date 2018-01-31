@@ -15,8 +15,7 @@ import fs from 'fs';
 
 import Mailer from 'utils/email';
 
-// import Verification from 'utils/verification';
-// global.Verification = Verification;
+global.Verification = Verification;
 
 import Metrix from './metrix';
 
